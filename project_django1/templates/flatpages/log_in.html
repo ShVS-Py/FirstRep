@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ flatpage.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+      <style>
+        body {
+            font-family: 'Inc Free', sans;
+            font-size: 12px;
+        }
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 5px 7px;
+            font-size: 10px;
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b4;
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        <h1>Log in only!</h1>
+        <div>{{ flatpage.content }}</div>
+    {% else %}
+        <h1>You must be logged in to access this page.</h1>
+        <p>Please log in to view this content.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+    {% endif %}
+
+    <div class="button-container">
+        <a href="/about/" class="btn">About</a>
+        <a href="/contacts/" class="btn">Contacts</a>
+    </div>
+</body>
+</html>
